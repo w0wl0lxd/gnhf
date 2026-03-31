@@ -125,7 +125,11 @@ export class ClaudeAgent implements Agent {
                 const content = (msg as Record<string, unknown>).content;
                 if (Array.isArray(content)) {
                   for (const block of content) {
-                    if (block?.type === "text" && typeof block.text === "string" && block.text.trim()) {
+                    if (
+                      block?.type === "text" &&
+                      typeof block.text === "string" &&
+                      block.text.trim()
+                    ) {
                       onMessage(block.text.trim());
                     }
                   }

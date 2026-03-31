@@ -52,7 +52,14 @@ describe("generateStarField", () => {
 });
 
 describe("getStarState", () => {
-  const bright = { x: 0, y: 0, char: "·", phase: 0, period: 10_000, rest: "bright" as const };
+  const bright = {
+    x: 0,
+    y: 0,
+    char: "·",
+    phase: 0,
+    period: 10_000,
+    rest: "bright" as const,
+  };
 
   it("returns rest state for most of the cycle", () => {
     expect(getStarState(bright, 5000)).toBe("bright");

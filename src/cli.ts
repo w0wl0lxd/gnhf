@@ -9,11 +9,7 @@ import {
   commitAll,
   getCurrentBranch,
 } from "./core/git.js";
-import {
-  setupRun,
-  resumeRun,
-  getLastIterationNumber,
-} from "./core/run.js";
+import { setupRun, resumeRun, getLastIterationNumber } from "./core/run.js";
 import { createAgent } from "./core/agents/factory.js";
 import { Orchestrator } from "./core/orchestrator.js";
 import { MockOrchestrator } from "./mock-orchestrator.js";
@@ -37,9 +33,7 @@ const program = new Command();
 
 program
   .name("gnhf")
-  .description(
-    "Before I go to bed, I tell my agents: good night, have fun",
-  )
+  .description("Before I go to bed, I tell my agents: good night, have fun")
   .version("0.1.0")
   .argument("[prompt]", "The objective for the coding agent")
   .option("--agent <agent>", "Agent to use (claude or codex)", "claude")
@@ -88,10 +82,7 @@ program
       if (onGnhfBranch) {
         const existingRunId = currentBranch.slice("gnhf/".length);
         const existing = resumeRun(existingRunId, cwd);
-        const existingPrompt = readFileSync(
-          existing.promptPath,
-          "utf-8",
-        );
+        const existingPrompt = readFileSync(existing.promptPath, "utf-8");
 
         if (!prompt || prompt === existingPrompt) {
           prompt = existingPrompt;
@@ -109,10 +100,7 @@ program
           if (answer === "o") {
             ensureCleanWorkingTree(cwd);
             runInfo = setupRun(existingRunId, prompt, cwd);
-            commitAll(
-              `gnhf: overwrite run ${existingRunId}`,
-              cwd,
-            );
+            commitAll(`gnhf: overwrite run ${existingRunId}`, cwd);
           } else if (answer === "n") {
             ensureCleanWorkingTree(cwd);
             const branchName = slugifyPrompt(prompt);

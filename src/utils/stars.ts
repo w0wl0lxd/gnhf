@@ -1,4 +1,17 @@
-const STAR_CHARS = ["·", "·", "·", "·", "·", "·", "✧", "⋆", "⋆", "⋆", "°", "°"] as const;
+const STAR_CHARS = [
+  "·",
+  "·",
+  "·",
+  "·",
+  "·",
+  "·",
+  "✧",
+  "⋆",
+  "⋆",
+  "⋆",
+  "°",
+  "°",
+] as const;
 
 export interface Star {
   x: number;
@@ -49,9 +62,7 @@ export function generateStarField(
 
 export function getStarState(star: Star, now: number): StarState {
   const t =
-    ((now % star.period) / star.period +
-      star.phase / (Math.PI * 2)) %
-    1;
+    ((now % star.period) / star.period + star.phase / (Math.PI * 2)) % 1;
   // Outside the blink window → steady state
   if (t > 0.05) return star.rest;
   // Inside the blink window → shift away from rest

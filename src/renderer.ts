@@ -198,7 +198,11 @@ function renderSideStarsCells(
   if (sideWidth <= 0) return [];
   const cells = emptyCells(sideWidth);
   for (const star of stars) {
-    if (star.y !== rowIndex || star.x < xOffset || star.x >= xOffset + sideWidth)
+    if (
+      star.y !== rowIndex ||
+      star.x < xOffset ||
+      star.x >= xOffset + sideWidth
+    )
       continue;
     const localX = star.x - xOffset;
     const state = getStarState(star, now);
@@ -227,8 +231,7 @@ export function buildContentCells(
   now: number,
 ): Cell[][] {
   const rows: Cell[][] = [];
-  const isRunning =
-    state.status === "running" || state.status === "waiting";
+  const isRunning = state.status === "running" || state.status === "waiting";
 
   rows.push([]);
   rows.push(...renderTitleCells());
@@ -413,7 +416,8 @@ export class Renderer {
       const topHeight = Math.ceil(remaining / 2) - 1;
       const proximityRows = 8;
       const shrinkBig = (s: Star, nearContentRow: boolean): Star => {
-        if (!nearContentRow || s.x < contentStart || s.x >= contentEnd) return s;
+        if (!nearContentRow || s.x < contentStart || s.x >= contentEnd)
+          return s;
         const star = s.char !== "·" ? { ...s, char: "·" } : s;
         return star.rest === "bright" ? { ...star, rest: "dim" } : star;
       };
@@ -452,9 +456,7 @@ export class Renderer {
     );
 
     if (this.isFirstFrame || resized) {
-      process.stdout.write(
-        "\x1b[H" + nextCells.map(rowToString).join("\n"),
-      );
+      process.stdout.write("\x1b[H" + nextCells.map(rowToString).join("\n"));
       this.isFirstFrame = false;
     } else {
       const changes = diffFrames(this.prevCells, nextCells);

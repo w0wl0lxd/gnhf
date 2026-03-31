@@ -1,5 +1,12 @@
 export const MOON_PHASES = [
-  "🌑", "🌒", "🌓", "🌔", "🌕", "🌖", "🌗", "🌘",
+  "🌑",
+  "🌒",
+  "🌓",
+  "🌔",
+  "🌕",
+  "🌖",
+  "🌗",
+  "🌘",
 ] as const;
 
 export type MoonState = "success" | "fail" | "active";

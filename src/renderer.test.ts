@@ -41,16 +41,12 @@ describe("renderStats", () => {
 
 describe("renderAgentMessage", () => {
   it("shows working indicator when no message", () => {
-    const plain = renderAgentMessage(null, "running")
-      .map(stripAnsi)
-      .join("\n");
+    const plain = renderAgentMessage(null, "running").map(stripAnsi).join("\n");
     expect(plain).toContain("working...");
   });
 
   it("shows waiting status during backoff", () => {
-    const plain = renderAgentMessage(null, "waiting")
-      .map(stripAnsi)
-      .join("\n");
+    const plain = renderAgentMessage(null, "waiting").map(stripAnsi).join("\n");
     expect(plain).toContain("waiting");
   });
 
@@ -81,9 +77,7 @@ describe("renderMoonStrip", () => {
       { success: true },
       { success: false },
     ];
-    const text = renderMoonStrip(iterations, false, Date.now()).join(
-      "",
-    );
+    const text = renderMoonStrip(iterations, false, Date.now()).join("");
     expect(text).toContain("\u{1F315}\u{1F315}\u{1F311}");
   });
 

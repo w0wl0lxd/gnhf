@@ -5,24 +5,96 @@ import type {
   IterationRecord,
 } from "./core/orchestrator.js";
 
-function mockIter(n: number, success: boolean, summary: string, agoMs: number): IterationRecord {
-  return { number: n, success, summary, keyChanges: [], keyLearnings: [], timestamp: new Date(Date.now() - agoMs) };
+function mockIter(
+  n: number,
+  success: boolean,
+  summary: string,
+  agoMs: number,
+): IterationRecord {
+  return {
+    number: n,
+    success,
+    summary,
+    keyChanges: [],
+    keyLearnings: [],
+    timestamp: new Date(Date.now() - agoMs),
+  };
 }
 
 const MOCK_ITERATIONS: IterationRecord[] = [
-  mockIter(1, true, "Profiled cold start — identified 3 major bottlenecks", 25_200_000),
-  mockIter(2, true, "Lazy-loaded config module, shaved 340ms off init", 24_000_000),
+  mockIter(
+    1,
+    true,
+    "Profiled cold start — identified 3 major bottlenecks",
+    25_200_000,
+  ),
+  mockIter(
+    2,
+    true,
+    "Lazy-loaded config module, shaved 340ms off init",
+    24_000_000,
+  ),
   mockIter(3, true, "Deferred plugin discovery to post-render", 22_800_000),
-  mockIter(4, false, "Attempted parallel module init — race condition in DI container", 21_000_000),
-  mockIter(5, true, "Fixed DI ordering, parallelized safe modules only", 19_200_000),
-  mockIter(6, true, "Replaced synchronous JSON parse with streaming decoder", 17_400_000),
-  mockIter(7, true, "Cached resolved dependency graph across restarts", 15_000_000),
-  mockIter(8, false, "Tree-shaking broke runtime dynamic import paths", 12_600_000),
-  mockIter(9, true, "Restored dynamic imports, added explicit entry chunks", 10_800_000),
-  mockIter(10, true, "Inlined critical-path CSS, deferred non-essential styles", 8_400_000),
-  mockIter(11, true, "Switched from full Intl polyfill to locale-on-demand", 6_000_000),
-  mockIter(12, true, "Pre-compiled handlebars templates at build time", 3_600_000),
-  mockIter(13, true, "Moved telemetry init behind requestIdleCallback", 1_800_000),
+  mockIter(
+    4,
+    false,
+    "Attempted parallel module init — race condition in DI container",
+    21_000_000,
+  ),
+  mockIter(
+    5,
+    true,
+    "Fixed DI ordering, parallelized safe modules only",
+    19_200_000,
+  ),
+  mockIter(
+    6,
+    true,
+    "Replaced synchronous JSON parse with streaming decoder",
+    17_400_000,
+  ),
+  mockIter(
+    7,
+    true,
+    "Cached resolved dependency graph across restarts",
+    15_000_000,
+  ),
+  mockIter(
+    8,
+    false,
+    "Tree-shaking broke runtime dynamic import paths",
+    12_600_000,
+  ),
+  mockIter(
+    9,
+    true,
+    "Restored dynamic imports, added explicit entry chunks",
+    10_800_000,
+  ),
+  mockIter(
+    10,
+    true,
+    "Inlined critical-path CSS, deferred non-essential styles",
+    8_400_000,
+  ),
+  mockIter(
+    11,
+    true,
+    "Switched from full Intl polyfill to locale-on-demand",
+    6_000_000,
+  ),
+  mockIter(
+    12,
+    true,
+    "Pre-compiled handlebars templates at build time",
+    3_600_000,
+  ),
+  mockIter(
+    13,
+    true,
+    "Moved telemetry init behind requestIdleCallback",
+    1_800_000,
+  ),
 ];
 
 const AGENT_MESSAGES: string[] = [
@@ -105,12 +177,15 @@ export class MockOrchestrator extends EventEmitter<OrchestratorEvents> {
   }
 
   private scheduleTokenBump(): void {
-    this.tokenTimer = setTimeout(() => {
-      this.state.totalInputTokens += randInt(40_000, 180_000);
-      this.state.totalOutputTokens += randInt(200, 2_000);
-      this.emit("state", this.getState());
-      if (this.state.status === "running") this.scheduleTokenBump();
-    }, randInt(1500, 7000));
+    this.tokenTimer = setTimeout(
+      () => {
+        this.state.totalInputTokens += randInt(40_000, 180_000);
+        this.state.totalOutputTokens += randInt(200, 2_000);
+        this.emit("state", this.getState());
+        if (this.state.status === "running") this.scheduleTokenBump();
+      },
+      randInt(1500, 7000),
+    );
   }
 
   private scheduleNextMessage(): void {
