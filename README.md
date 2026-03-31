@@ -1,3 +1,5 @@
+# gnhf
+
 <p align="center">Before I go to bed, I tell my agents:</p>
 <h1 align="center">good night, have fun</h1>
 
@@ -39,11 +41,11 @@
   <img src="docs/splash.png" alt="gnhf — Good Night, Have Fun" width="800">
 </p>
 
-gnhf is a [ralph loop](https://ghuntley.com/ralph/) orchestrator that keeps your agents running while you sleep — each iteration makes one small, committed, documented change towards an objective.
+gnhf is a [ralph loop](https://ghuntley.com/ralph/), autoresearch-style orchestrator that keeps your agents running while you sleep — each iteration makes one small, committed, documented change towards an objective.
 You wake up to a branch full of clean work and a log of everything that happened.
 
 - **Dead simple** — one command starts an autonomous loop that runs until you Ctrl+C
-- **Autonomous by design** — each iteration is committed on success, rolled back on failure, with exponential backoff and auto-abort after consecutive failures
+- **Long running** — each iteration is committed on success, rolled back on failure, with sensible retries and exponential backoff
 - **Agent-agnostic** — works with Claude Code or Codex out of the box
 
 ## Quick Start
@@ -121,11 +123,12 @@ npm link
 
 ## CLI Reference
 
-| Command                 | Description                                     |
-| ----------------------- | ----------------------------------------------- |
-| `gnhf "<prompt>"`       | Start a new run with the given objective        |
-| `gnhf`                  | Resume a run (when on an existing gnhf/ branch) |
-| `echo "prompt" \| gnhf` | Pipe prompt via stdin                           |
+| Command                   | Description                                     |
+| ------------------------- | ----------------------------------------------- |
+| `gnhf "<prompt>"`         | Start a new run with the given objective        |
+| `gnhf`                    | Resume a run (when on an existing gnhf/ branch) |
+| `echo "<prompt>" \| gnhf` | Pipe prompt via stdin                           |
+| `cat prd.md \| gnhf`      | Pipe a large spec or PRD via stdin              |
 
 ### Flags
 
