@@ -39,7 +39,7 @@
   <img src="docs/splash.png" alt="gnhf — Good Night, Have Fun" width="800">
 </p>
 
-gnhf is a [ralph loop](https://ghuntley.com/ralph/), autoresearch-style orchestrator that keeps your agents running while you sleep — each iteration makes one small, committed, documented change towards an objective.
+gnhf is a [ralph](https://ghuntley.com/ralph/), [autoresearch](https://github.com/karpathy/autoresearch)-style orchestrator that keeps your agents running while you sleep — each iteration makes one small, committed, documented change towards an objective.
 You wake up to a branch full of clean work and a log of everything that happened.
 
 - **Dead simple** — one command starts an autonomous loop that runs until you Ctrl+C
